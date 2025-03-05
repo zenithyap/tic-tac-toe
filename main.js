@@ -91,7 +91,7 @@ const gameboard = (function() {
         console.log(boardWithCellSymbols);
     }
 
-    return { initBoard, getBoard, changeSymbol, isWinBoard, printBoard };
+    return { initBoard, getBoard, changeSymbol, isWinBoard, printBoard, BOARD_SIZE };
 })();
 
 function cell() {
@@ -152,7 +152,31 @@ const gameController = (function(playerOneName="Player One", playerTwoName="Play
     return { getActivePlayer, playRound };
 })();
 
+const displayController = (function() {
+    function renderDisplay() {
+        const board = gameboard.getBoard();
+        const rows = {
+            0: document.querySelector(".first-row"),
+            1: document.querySelector(".second-row"),
+            2: document.querySelector(".third-row")
+        };
+
+        for (let row = 0; row < gameboard.BOARD_SIZE; row++) {
+            for (let col = 0; col < gameboard.BOARD_SIZE; col++) {
+                const symbol = document.createElement("div");
+                symbol.textContent = board[row][col].getSymbol();
+                rows[0].appendChild(symbol);
+            }
+        }
+    }
+
+    return { renderDisplay };
+})();
+
 gameController.playRound(0, 0);
 gameController.playRound(0, 1);
 gameController.playRound(2, 0);
 gameController.playRound(0, 2);
+
+
+displayController.renderDisplay();
