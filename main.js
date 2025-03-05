@@ -161,13 +161,17 @@ const displayController = (function() {
             2: document.querySelector(".third-row")
         };
 
-        for (let row = 0; row < gameboard.BOARD_SIZE; row++) {
-            for (let col = 0; col < gameboard.BOARD_SIZE; col++) {
-                const symbol = document.createElement("div");
-                symbol.textContent = board[row][col].getSymbol();
-                rows[0].appendChild(symbol);
-            }
-        }
+        board.forEach((row, rowIndex) => {
+            row.forEach((cell, colIndex) => {
+                const cellButton = document.createElement("button");
+                cellButton.classList.add("cell");
+
+                cellButton.dataset.row = rowIndex;
+                cellButton.dataset.col = colIndex;
+                cellButton.textContent = cell.getSymbol();
+                rows[rowIndex].appendChild(cellButton);
+            });
+        })
     }
 
     return { renderDisplay };
