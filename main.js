@@ -121,33 +121,38 @@ const gameController = (function(playerOneName="Player One", playerTwoName="Play
     gameboard.initBoard();
 
     const players = [
-        player(playerOneName, "X"), 
+        player(playerOneName, "X"),
         player(playerTwoName, "O")
-    ]
+    ];
 
     let activePlayer = players[0];
 
-    function switchActivePlayer() {}
-    function getActivePlayer() {}
-    function printNewRound() {}
-    function playRound(row, col) {
-        board.changeSymbol();
-        if (board.isWinBoard()) {
+    function switchActivePlayer() {
+        if (activePlayer === players[0]) {
+            activePlayer = players[1];
+        } else {
+            activePlayer = players[0];
+        }
+    }
 
+    function getActivePlayer() {
+        return activePlayer;
+    }
+
+    function playRound(row, col) {
+        gameboard.changeSymbol(row, col, activePlayer.symbol);
+        if (gameboard.isWinBoard()) {
+            console.log(`${activePlayer.name} has won!`)
         } else {
             switchActivePlayer();
-            board.printBoard();
+            gameboard.printBoard();
         }   
     }
 
     return { getActivePlayer, playRound };
 })();
 
-gameboard.initBoard();
-gameboard.printBoard();
-gameboard.changeSymbol(2, 0, "O");
-gameboard.changeSymbol(1, 1, "O");
-gameboard.changeSymbol(0, 2, "O");
-gameboard.printBoard();
-
-console.log(gameboard.isWinBoard());
+gameController.playRound(0, 0);
+gameController.playRound(0, 1);
+gameController.playRound(2, 0);
+gameController.playRound(0, 2);
