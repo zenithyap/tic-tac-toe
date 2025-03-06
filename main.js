@@ -153,13 +153,11 @@ const gameController = (function(playerOneName="Player One", playerTwoName="Play
 })();
 
 const displayController = (function() {
+    const boardDiv = document.querySelector(".board");
+
     function renderDisplay() {
         const board = gameboard.getBoard();
-        const rows = {
-            0: document.querySelector(".first-row"),
-            1: document.querySelector(".second-row"),
-            2: document.querySelector(".third-row")
-        };
+        boardDiv.textContent = "";
 
         board.forEach((row, rowIndex) => {
             row.forEach((cell, colIndex) => {
@@ -169,18 +167,20 @@ const displayController = (function() {
                 cellButton.dataset.row = rowIndex;
                 cellButton.dataset.col = colIndex;
                 cellButton.textContent = cell.getSymbol();
-                rows[rowIndex].appendChild(cellButton);
+                boardDiv.appendChild(cellButton);
             });
         })
     }
 
-    return { renderDisplay };
+    function clickHandlerBoard(e) {
+        console.log(e);
+        const selectedRow = e.target.dataset.row;
+        const selectedCol = e.target.dataset.col;
+        
+        gameController.playRound(selectedRow, selectedCol);
+        renderDisplay();
+    }
+    
+    boardDiv.addEventListener("click", clickHandlerBoard);
+    renderDisplay();
 })();
-
-gameController.playRound(0, 0);
-gameController.playRound(0, 1);
-gameController.playRound(2, 0);
-gameController.playRound(0, 2);
-
-
-displayController.renderDisplay();
