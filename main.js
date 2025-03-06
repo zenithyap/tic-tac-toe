@@ -135,21 +135,21 @@ const gameController = (function(playerOneName="Player One", playerTwoName="Play
         }
     }
 
-    function getActivePlayer() {
-        return activePlayer;
+    function getActivePlayerName() {
+        return activePlayer.name;
     }
 
     function playRound(row, col) {
         gameboard.changeSymbol(row, col, activePlayer.symbol);
         if (gameboard.isWinBoard()) {
-            console.log(`${activePlayer.name} has won!`)
+            displayController.displayResult();
         } else {
             switchActivePlayer();
             gameboard.printBoard();
         }   
     }
 
-    return { getActivePlayer, playRound };
+    return { getActivePlayerName, playRound };
 })();
 
 const displayController = (function() {
@@ -157,7 +157,7 @@ const displayController = (function() {
 
     function renderDisplay() {
         const board = gameboard.getBoard();
-        boardDiv.textContent = "";
+        clearBoard();
 
         board.forEach((row, rowIndex) => {
             row.forEach((cell, colIndex) => {
@@ -180,7 +180,18 @@ const displayController = (function() {
         gameController.playRound(selectedRow, selectedCol);
         renderDisplay();
     }
+
+    function clearBoard() {
+        boardDiv.textContent = "";
+    }
+
+    function displayResult() {
+        const result = document.querySelector(".result");   
+        result.textContent = `${gameController.getActivePlayerName()} has won!`;
+    }
     
     boardDiv.addEventListener("click", clickHandlerBoard);
     renderDisplay();
+
+    return { displayResult };
 })();
