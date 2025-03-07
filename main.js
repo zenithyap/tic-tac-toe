@@ -158,7 +158,7 @@ const displayController = (function() {
     const body = document.querySelector("body");
     const result = document.querySelector(".result");
 
-    function renderDisplay() {
+    function renderBoardDisplay() {
         const board = gameboard.getBoard();
         clearBoardDisplay();
 
@@ -180,7 +180,7 @@ const displayController = (function() {
         const selectedCol = e.target.dataset.col;
         
         gameController.playRound(selectedRow, selectedCol);
-        renderDisplay();
+        renderBoardDisplay();
     }
 
     function clearBoardDisplay() {
@@ -190,7 +190,7 @@ const displayController = (function() {
     function resetDisplay() {
         gameboard.initBoard();
         result.textContent = "";
-        renderDisplay();
+        renderBoardDisplay();
     }
 
     function displayResetButton() {
@@ -209,7 +209,7 @@ const displayController = (function() {
     }
     
     boardDiv.addEventListener("click", clickHandlerBoard);
-    renderDisplay();
+    renderBoardDisplay();
 
     return { displayResult, displayResetButton };
 })();
