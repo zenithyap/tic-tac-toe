@@ -156,7 +156,7 @@ const gameController = (function(playerOneName="Player One", playerTwoName="Play
 const displayController = (function() {
     const boardDiv = document.querySelector(".board");
     const body = document.querySelector("body");
-    const result = document.querySelector(".result");   
+    const result = document.querySelector(".result");
 
     function renderDisplay() {
         const board = gameboard.getBoard();
@@ -176,7 +176,6 @@ const displayController = (function() {
     }
 
     function clickHandlerBoard(e) {
-        console.log(e);
         const selectedRow = e.target.dataset.row;
         const selectedCol = e.target.dataset.col;
         
