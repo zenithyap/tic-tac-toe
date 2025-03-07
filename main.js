@@ -143,6 +143,7 @@ const gameController = (function(playerOneName="Player One", playerTwoName="Play
         gameboard.changeSymbol(row, col, activePlayer.symbol);
         if (gameboard.isWinBoard()) {
             displayController.displayResult();
+            displayController.displayResetButton();
         } else {
             switchActivePlayer();
             gameboard.printBoard();
@@ -154,10 +155,12 @@ const gameController = (function(playerOneName="Player One", playerTwoName="Play
 
 const displayController = (function() {
     const boardDiv = document.querySelector(".board");
+    const body = document.querySelector("body");
+    const result = document.querySelector(".result");   
 
     function renderDisplay() {
         const board = gameboard.getBoard();
-        clearBoard();
+        clearBoardDisplay();
 
         board.forEach((row, rowIndex) => {
             row.forEach((cell, colIndex) => {
@@ -181,17 +184,33 @@ const displayController = (function() {
         renderDisplay();
     }
 
-    function clearBoard() {
+    function clearBoardDisplay() {
         boardDiv.textContent = "";
     }
 
+    function resetDisplay() {
+        gameboard.initBoard();
+        result.textContent = "";
+        renderDisplay();
+    }
+
+    function displayResetButton() {
+        const resetButton = document.createElement("button");
+        resetButton.textContent = "Reset";
+        body.appendChild(resetButton);
+
+        resetButton.addEventListener("click", () => {
+            resetDisplay();
+            resetButton.remove();
+        });
+    }
+
     function displayResult() {
-        const result = document.querySelector(".result");   
         result.textContent = `${gameController.getActivePlayerName()} has won!`;
     }
     
     boardDiv.addEventListener("click", clickHandlerBoard);
     renderDisplay();
 
-    return { displayResult };
+    return { displayResult, displayResetButton };
 })();
