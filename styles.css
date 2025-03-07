@@ -3,3 +3,38 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+:root {
+    --grid-line: 5px solid #000;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.board {
+    height: 50%;
+    aspect-ratio: 1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.cell {
+    background: none;
+    border: none;
+}
+
+.cell:nth-child(3n + 2) {
+    border-left: var(--grid-line);
+    border-right: var(--grid-line);
+}
+
+.cell:nth-child(n+4):nth-child(-n+6) {
+    border-top: var(--grid-line);
+    border-bottom: var(--grid-line);
+}
