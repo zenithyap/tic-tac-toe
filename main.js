@@ -16,7 +16,9 @@ const gameboard = (function() {
     }
 
     function changeSymbol(row, col, symbol) {
-        board[row][col].changeSymbol(symbol);
+        if (!board[row][col].hasSymbol()) {
+            board[row][col].changeSymbol(symbol);
+        }
     }
 
     // Module to check if board state has a winner
@@ -178,7 +180,7 @@ const displayController = (function() {
     function clickHandlerBoard(e) {
         const selectedRow = e.target.dataset.row;
         const selectedCol = e.target.dataset.col;
-        
+
         gameController.playRound(selectedRow, selectedCol);
         renderBoardDisplay();
     }
