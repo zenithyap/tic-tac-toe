@@ -120,6 +120,7 @@ function player(name, symbol) {
 }
 
 const gameController = (function(playerOneName="Player One", playerTwoName="Player Two") {
+    let gameEnd = false;
     gameboard.initBoard();
 
     const players = [
@@ -142,14 +143,17 @@ const gameController = (function(playerOneName="Player One", playerTwoName="Play
     }
 
     function playRound(row, col) {
-        gameboard.changeSymbol(row, col, activePlayer.symbol);
-        if (gameboard.isWinBoard()) {
-            displayController.displayResult();
-            displayController.displayResetButton();
-        } else {
-            switchActivePlayer();
-            gameboard.printBoard();
-        }   
+        if (!gameEnd) {
+            gameboard.changeSymbol(row, col, activePlayer.symbol);
+            if (gameboard.isWinBoard()) {
+                displayController.displayResult();
+                displayController.displayResetButton();
+                gameEnd = true;
+            } else {
+                switchActivePlayer();
+                gameboard.printBoard();
+            } 
+        }
     }
 
     return { getActivePlayerName, playRound };
