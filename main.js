@@ -145,17 +145,16 @@ const gameController = (function(playerOneName="Player One", playerTwoName="Play
     }
 
     function playRound(row, col) {
-        if (!gameEnd) {
-            if (!gameboard.hasSymbolAtPos(row, col)) {
-                gameboard.changeSymbol(row, col, activePlayer.symbol);
-                switchActivePlayer();
-            }
-            
+        if (!gameEnd && !gameboard.hasSymbolAtPos(row, col)) {
+            gameboard.changeSymbol(row, col, activePlayer.symbol);
+
             if (gameboard.isWinBoard()) {
                 displayController.displayResult();
                 displayController.displayResetButton();
                 gameEnd = true;
             }
+
+            switchActivePlayer();
         }
     }
 
