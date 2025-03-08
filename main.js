@@ -161,6 +161,7 @@ const gameController = (function(playerOneName="Player One", playerTwoName="Play
     function resetGame() {
         gameEnd = false;
         gameboard.initBoard();
+        activePlayer = players[0];
     }
 
     return { getActivePlayerName, playRound, resetGame };
