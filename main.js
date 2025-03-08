@@ -15,10 +15,12 @@ const gameboard = (function() {
         return board;
     }
 
+    function hasSymbolAtPos(row, col) {
+        return board[row][col].hasSymbol();
+    }
+
     function changeSymbol(row, col, symbol) {
-        if (!board[row][col].hasSymbol()) {
-            board[row][col].changeSymbol(symbol);
-        }
+        board[row][col].changeSymbol(symbol);
     }
 
     // Module to check if board state has a winner
@@ -93,7 +95,7 @@ const gameboard = (function() {
         console.log(boardWithCellSymbols);
     }
 
-    return { initBoard, getBoard, changeSymbol, isWinBoard, printBoard, BOARD_SIZE };
+    return { initBoard, getBoard, hasSymbolAtPos, changeSymbol, isWinBoard, printBoard, BOARD_SIZE };
 })();
 
 function cell() {
@@ -144,14 +146,15 @@ const gameController = (function(playerOneName="Player One", playerTwoName="Play
 
     function playRound(row, col) {
         if (!gameEnd) {
-            gameboard.changeSymbol(row, col, activePlayer.symbol);
             if (gameboard.isWinBoard()) {
                 displayController.displayResult();
                 displayController.displayResetButton();
                 gameEnd = true;
             } else {
-                switchActivePlayer();
-                gameboard.printBoard();
+                if (!gameboard.hasSymbolAtPos(row, col)) {
+                    gameboard.changeSymbol(row, col, activePlayer.symbol);
+                    switchActivePlayer();
+                }
             } 
         }
     }
