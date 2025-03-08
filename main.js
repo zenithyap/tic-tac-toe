@@ -156,7 +156,12 @@ const gameController = (function(playerOneName="Player One", playerTwoName="Play
         }
     }
 
-    return { getActivePlayerName, playRound };
+    function resetGame() {
+        gameEnd = false;
+        gameboard.initBoard();
+    }
+
+    return { getActivePlayerName, playRound, resetGame };
 })();
 
 const displayController = (function() {
@@ -194,7 +199,7 @@ const displayController = (function() {
     }
 
     function resetDisplay() {
-        gameboard.initBoard();
+        gameController.resetGame();
         result.textContent = "";
         renderBoardDisplay();
     }
