@@ -97,7 +97,7 @@ const gameboard = (function() {
 })();
 
 function cell() {
-    const EMPTY = "_";
+    const EMPTY = "";
     let symbol = EMPTY;
 
     function changeSymbol(newSymbol) {
