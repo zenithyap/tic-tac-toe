@@ -28,6 +28,11 @@ body {
 .cell {
     background: none;
     border: none;
+    font-size: 5rem;
+}
+
+.cell:hover {
+    background-color: #ECECEC;
 }
 
 .cell:nth-child(3n + 2) {
