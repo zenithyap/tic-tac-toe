@@ -9,6 +9,7 @@
 }
 
 body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -17,8 +18,17 @@ body {
     align-items: center;
 }
 
-.board {
+input, button, textarea, select {
+    font: inherit;
+}
+
+.main-container {
     height: 50%;
+    aspect-ratio: 1;
+}
+
+.board {
+    height: 100%;
     aspect-ratio: 1;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -31,7 +41,8 @@ body {
     font-size: 5rem;
 }
 
-.cell:hover {
+.cell:hover,
+.reset-button:hover {
     background-color: #ECECEC;
 }
 
@@ -43,4 +54,22 @@ body {
 .cell:nth-child(n+4):nth-child(-n+6) {
     border-top: var(--grid-line);
     border-bottom: var(--grid-line);
+}
+
+.result-container {
+    display: grid;
+    justify-items: center;
+    margin-top: 24px;
+    gap: 6px;
+}
+
+.result {
+    font-size: 2rem;
+}
+
+.reset-button {
+    border: 2px solid #ECECEC;
+    border-radius: 6px;
+    padding: 6px 12px;
+    background-color: transparent;
 }

@@ -169,8 +169,8 @@ const gameController = (function(playerOneName="Player One", playerTwoName="Play
 
 const displayController = (function() {
     const boardDiv = document.querySelector(".board");
-    const body = document.querySelector("body");
     const result = document.querySelector(".result");
+    const resultContainer = document.querySelector(".result-container");
 
     function renderBoardDisplay() {
         const board = gameboard.getBoard();
@@ -209,8 +209,9 @@ const displayController = (function() {
 
     function displayResetButton() {
         const resetButton = document.createElement("button");
+        resetButton.classList.add("reset-button");
         resetButton.textContent = "Reset";
-        body.appendChild(resetButton);
+        resultContainer.appendChild(resetButton);
 
         resetButton.addEventListener("click", () => {
             resetDisplay();
